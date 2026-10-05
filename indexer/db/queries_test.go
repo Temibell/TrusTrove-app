@@ -744,7 +744,7 @@ func TestInvoiceCheckConstraints(t *testing.T) {
 
 	ctx := context.Background()
 	id := fmt.Sprintf("constraint-test%d", time.Now().UnixNano())
-	if err := InsertInvoice(ctx, newTestInvoice(id)); err != nil {
+	if err := InsertInvoice(ctx, Pool, newTestInvoice(id)); err != nil {
 		t.Fatalf("InsertInvoice: %v", err)
 	}
 	t.Cleanup(func() {
