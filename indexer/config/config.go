@@ -20,31 +20,32 @@ import (
 const maxConfirmationDepth = 20
 
 type Config struct {
-	StellarNetwork         string
-	HorizonURL             string
-	SorobanRPCURL          string
-	NetworkPassphrase      string
-	RegistryContractID     string
-	InvoiceContractID      string
-	PoolContractID         string
-	EscrowContractID       string
-	USDCIssuer             string
-	USDCAssetCode          string
-	DatabaseURL            string
-	APIPort                string
-	IndexerPollIntervalMs  int
-	JWTSecret              string
-	JWTSecretGenerated     bool
-	JWTExpiryHours         int
-	CORSAllowedOrigins     []string
-	RateLimitRPS           int
-	InvoiceRateLimit       int
-	InvoiceRateLimitWindow time.Duration
-	WebhookConcurrency     int
-	ServerSeed             string
-	ServerSeedGenerated    bool
-	SentryDSN              string
-	MetricsToken           string
+	StellarNetwork           string
+	HorizonURL               string
+	SorobanRPCURL            string
+	NetworkPassphrase        string
+	RegistryContractID       string
+	InvoiceContractID        string
+	PoolContractID           string
+	EscrowContractID         string
+	USDCIssuer               string
+	USDCAssetCode            string
+	DatabaseURL              string
+	APIPort                  string
+	IndexerPollIntervalMs    int
+	IndexerConfirmationDepth int
+	JWTSecret                string
+	JWTSecretGenerated       bool
+	JWTExpiryHours           int
+	CORSAllowedOrigins       []string
+	RateLimitRPS             int
+	InvoiceRateLimit         int
+	InvoiceRateLimitWindow   time.Duration
+	WebhookConcurrency       int
+	ServerSeed               string
+	ServerSeedGenerated      bool
+	SentryDSN                string
+	MetricsToken             string
 }
 
 func LoadConfig() (*Config, error) {
@@ -194,31 +195,32 @@ func LoadConfig() (*Config, error) {
 	}
 
 	cfg := &Config{
-		StellarNetwork:         getRequired("STELLAR_NETWORK"),
-		HorizonURL:             getRequired("HORIZON_URL"),
-		SorobanRPCURL:          getRequired("SOROBAN_RPC_URL"),
-		NetworkPassphrase:      getRequired("NETWORK_PASSPHRASE"),
-		RegistryContractID:     getRequired("REGISTRY_CONTRACT_ID"),
-		InvoiceContractID:      getRequired("INVOICE_CONTRACT_ID"),
-		PoolContractID:         getRequired("POOL_CONTRACT_ID"),
-		EscrowContractID:       getRequired("ESCROW_CONTRACT_ID"),
-		USDCIssuer:             getRequired("USDC_ISSUER"),
-		USDCAssetCode:          getRequired("USDC_ASSET_CODE"),
-		DatabaseURL:            getRequired("DATABASE_URL"),
-		APIPort:                apiPort,
-		IndexerPollIntervalMs:  pollIntervalMs,
-		JWTSecret:              jwtSecret,
-		JWTSecretGenerated:     jwtSecretGenerated,
-		JWTExpiryHours:         jwtExpiryHours,
-		CORSAllowedOrigins:     corsOrigins,
-		RateLimitRPS:           rateLimitRPS,
-		InvoiceRateLimit:       invoiceRateLimit,
-		InvoiceRateLimitWindow: invoiceRateLimitWindow,
-		WebhookConcurrency:     webhookConcurrency,
-		ServerSeed:             serverSeed,
-		ServerSeedGenerated:    serverSeedGenerated,
-		SentryDSN:              strings.TrimSpace(os.Getenv("SENTRY_DSN")),
-		MetricsToken:           strings.TrimSpace(os.Getenv("METRICS_TOKEN")),
+		StellarNetwork:           getRequired("STELLAR_NETWORK"),
+		HorizonURL:               getRequired("HORIZON_URL"),
+		SorobanRPCURL:            getRequired("SOROBAN_RPC_URL"),
+		NetworkPassphrase:        getRequired("NETWORK_PASSPHRASE"),
+		RegistryContractID:       getRequired("REGISTRY_CONTRACT_ID"),
+		InvoiceContractID:        getRequired("INVOICE_CONTRACT_ID"),
+		PoolContractID:           getRequired("POOL_CONTRACT_ID"),
+		EscrowContractID:         getRequired("ESCROW_CONTRACT_ID"),
+		USDCIssuer:               getRequired("USDC_ISSUER"),
+		USDCAssetCode:            getRequired("USDC_ASSET_CODE"),
+		DatabaseURL:              getRequired("DATABASE_URL"),
+		APIPort:                  apiPort,
+		IndexerPollIntervalMs:    pollIntervalMs,
+		IndexerConfirmationDepth: confirmationDepth,
+		JWTSecret:                jwtSecret,
+		JWTSecretGenerated:       jwtSecretGenerated,
+		JWTExpiryHours:           jwtExpiryHours,
+		CORSAllowedOrigins:       corsOrigins,
+		RateLimitRPS:             rateLimitRPS,
+		InvoiceRateLimit:         invoiceRateLimit,
+		InvoiceRateLimitWindow:   invoiceRateLimitWindow,
+		WebhookConcurrency:       webhookConcurrency,
+		ServerSeed:               serverSeed,
+		ServerSeedGenerated:      serverSeedGenerated,
+		SentryDSN:                strings.TrimSpace(os.Getenv("SENTRY_DSN")),
+		MetricsToken:             strings.TrimSpace(os.Getenv("METRICS_TOKEN")),
 	}
 
 	if len(missing) > 0 {
